@@ -142,14 +142,14 @@ function test_utf_samples() {
   })
 }
 
-function test(fn, name) {
+function run(fn, name) {
   console.log(name)
   fn()
 }
 
-test(test_utf_samples, 'UTF-8 - Encode/Decode - reference sample')
+run(test_utf_samples, 'UTF-8 - Encode/Decode - reference sample')
 
-test(
+run(
   test_utf_roundtrip,
   'UTF-8 - Encode/Decode - full roundtrip and ' + 'agreement with encode/decodeURIComponent'
 )
