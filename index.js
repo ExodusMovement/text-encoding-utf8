@@ -26,7 +26,7 @@ function TextDecoder(encoding = UTF8, options = {}) {
   assertUTF8(encoding)
 
   // Buffer.from will throw
-  const { fatal = true, ignoreBOM = false } = options
+  const { fatal = true, ignoreBOM = false, stream = false } = options
 
   if (fatal === false) {
     throw new Error('disabling "fatal" mode is not supported')
@@ -34,6 +34,10 @@ function TextDecoder(encoding = UTF8, options = {}) {
 
   if (ignoreBOM) {
     throw new Error('option "ignoreBOM" is not supported')
+  }
+
+  if (stream) {
+    throw new Error('option "stream" is not supported')
   }
 
   // see: https://github.com/inexorabletash/text-encoding/blob/master/lib/encoding.js#L1049
