@@ -1,17 +1,20 @@
 const UTF8 = 'utf-8'
 
+const normalizeEncoding = (encoding) => encoding.toLowerCase()
+
 const defineFinal = (obj, property, value) =>
   Object.defineProperty(obj, property, { value, writable: false })
 
 const assertUTF8 = (encoding) => {
-  if (encoding.toLowerCase() !== UTF8) {
+  if (encoding !== UTF8) {
     throw new Error('only utf-8 is supported')
   }
 }
 
 function TextEncoder(encoding = UTF8) {
+  encoding = normalizeEncoding(encoding)
   assertUTF8(encoding)
-  defineFinal(this, 'encoding', encoding.toLowerCase())
+  defineFinal(this, 'encoding', encoding)
 }
 
 TextEncoder.prototype.encode = function(str) {
@@ -23,6 +26,7 @@ TextEncoder.prototype.encodeInto = function() {
 }
 
 function TextDecoder(encoding = UTF8, options = {}) {
+  encoding = normalizeEncoding(encoding)
   assertUTF8(encoding)
 
   // Buffer.from will throw
@@ -41,7 +45,7 @@ function TextDecoder(encoding = UTF8, options = {}) {
   }
 
   // see: https://github.com/inexorabletash/text-encoding/blob/master/lib/encoding.js#L1049
-  defineFinal(this, 'encoding', encoding.toLowerCase())
+  defineFinal(this, 'encoding', encoding)
   defineFinal(this, 'fatal', fatal)
   defineFinal(this, 'ignoreBOM', ignoreBOM)
 }
