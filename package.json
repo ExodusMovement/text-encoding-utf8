@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "description": "utf-8 only polyfill for TextEncoder/TextDecoder, using Buffer",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore --quiet .",
     "test": "node test-legacy/utf8.js && jest"

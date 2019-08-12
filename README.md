@@ -1,6 +1,6 @@
 # @exodus/text-encoding-utf8
 
-utf-8 only polyfill for TextEncoder/TextDecoder
+utf-8 only polyfill for TextEncoder/TextDecoder, using Buffer
 
 see the full polyfill: https://github.com/inexorabletash/text-encoding/
 
