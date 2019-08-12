@@ -6,7 +6,8 @@
   "description": "utf-8 only polyfill for TextEncoder/TextDecoder, using Buffer",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore --quiet .",
-    "test": "node test-legacy/utf8.js && jest"
+    "test": "node test-legacy/utf8.js && jest",
+    "precommit": "lint-staged && yarn test"
   },
   "devDependencies": {
     "eslint": "^6.1.0",
@@ -44,7 +45,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn precommit"
     }
   },
   "lint-staged": {
