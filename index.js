@@ -51,7 +51,10 @@ function TextDecoder(encoding = UTF8, options = {}) {
 }
 
 TextDecoder.prototype.decode = function(buf) {
-  if (!Buffer.isBuffer(buf)) buf = Buffer.from(buf)
+  // not sure of if this is possible
+  if (!Buffer.isBuffer(buf) && buf instanceof Uint8Array) {
+    buf = Buffer.from(buf)
+  }
 
   return buf.toString()
 }
