@@ -1,7 +1,7 @@
 // adapted with minimal changes from: https://github.com/inexorabletash/text-encoding/blob/master/test/test-utf.js
 
 // This is free and unencumbered software released into the public domain.
-// See LICENSE.md for more information.
+// See  https://github.com/inexorabletash/text-encoding/blob/master/LICENSE.md for more information.
 
 /* eslint camelcase:off */
 

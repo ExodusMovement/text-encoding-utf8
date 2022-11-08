@@ -7,28 +7,23 @@
   "description": "utf-8 only polyfill for TextEncoder/TextDecoder, using Buffer",
   "scripts": {
     "lint": "eslint --ignore-path .gitignore --quiet .",
-    "test": "node test-legacy/utf8.js && jest",
-    "precommit": "lint-staged && yarn test"
+    "test": "node test-legacy/utf8.js && jest"
   },
   "devDependencies": {
-    "eslint": "^6.2.2",
-    "eslint-config-prettier": "^4.0.0",
-    "eslint-config-standard": "^12.0.0",
+    "eslint": "^8.26.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^22.15.0",
-    "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "husky": "^1.3.1",
+    "eslint-plugin-n": "^15.4.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-promise": "^6.1.1",
     "jest": "^24.8.0",
-    "lint-staged": "^8.1.1",
-    "prettier": "^1.16.1"
+    "prettier": "^2.7.1"
   },
   "eslintConfig": {
     "extends": [
       "standard",
-      "prettier",
-      "prettier/standard"
+      "prettier"
     ],
     "plugins": [
       "jest"
@@ -43,17 +38,5 @@
     "singleQuote": true,
     "arrowParens": "always",
     "trailingComma": "es5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn precommit"
-    }
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "dependencies": {}
+  }
 }
