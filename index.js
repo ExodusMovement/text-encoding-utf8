@@ -1,6 +1,11 @@
 const UTF8 = 'utf-8'
 
-const normalizeEncoding = (encoding) => encoding.toLowerCase()
+const normalizeEncoding = (encoding) => {
+  const lower = encoding.toLowerCase()
+  // https://developer.mozilla.org/en-US/docs/Web/API/Encoding_API/Encodings
+  if (lower === 'utf8' || lower === 'unicode-1-1-utf-8') return 'utf-8'
+  return lower
+}
 
 const defineFinal = (obj, property, value) =>
   Object.defineProperty(obj, property, { value, writable: false })
