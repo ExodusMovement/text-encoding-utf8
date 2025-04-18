@@ -25,7 +25,7 @@ describe('constructors', () => {
     expect(() => new TextEncoder('windows-1251')).toThrow('utf-8')
   })
 
-  it('rejects non utf-16 encoder', () => {
+  it('rejects utf-16 encoder', () => {
     expect(() => new TextEncoder('utf-16')).toThrow('utf-8')
   })
 
