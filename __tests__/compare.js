@@ -5,7 +5,7 @@ describe('compare with Node.js impl', () => {
   it('TextEncoder', () => {
     for (const x of ['one', '∀x']) {
       const node = new nodeTextEncoder().encode(x)
-      expect(new Uint8Array(new TextEncoder().encode(x))).toEqual(node)
+      expect(new TextEncoder().encode(x)).toEqual(node)
     }
   })
 
@@ -26,6 +26,16 @@ describe('compare with Node.js impl', () => {
         expect(new nodeTextDecoder(encoding).decode(arr)).toEqual(x)
         expect(new TextDecoder(encoding).decode(arr)).toEqual(x)
       }
+    }
+  })
+
+  it('TextDecoder: accept ArrayBuffer', () => {
+    for (const x of ['one', '∀x']) {
+      const arr = new nodeTextEncoder().encode(x)
+      const buf = arr.buffer
+      expect(buf.byteLength).toBe(arr.length)
+      expect(new nodeTextDecoder().decode(buf)).toEqual(x)
+      expect(new TextDecoder().decode(buf)).toEqual(x)
     }
   })
 })
