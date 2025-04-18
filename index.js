@@ -3,7 +3,7 @@ const UTF8 = 'utf-8'
 const normalizeEncoding = (encoding) => {
   const lower = encoding.toLowerCase()
   // https://developer.mozilla.org/en-US/docs/Web/API/Encoding_API/Encodings
-  if (lower === 'utf8' || lower === 'unicode-1-1-utf-8') return 'utf-8'
+  if (lower === 'utf8' || lower === 'unicode-1-1-utf-8') return UTF8
   return lower
 }
 
