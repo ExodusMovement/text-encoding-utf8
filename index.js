@@ -26,6 +26,12 @@ const assertUTF8orUTF16LE = (encoding) => {
   }
 }
 
+const assertBufferSource = (buf) => {
+  if (buf instanceof ArrayBuffer || ArrayBuffer.isView(buf)) return
+  if (globalThis.SharedArrayBuffer && buf instanceof globalThis.SharedArrayBuffer) return
+  throw new Error('argument must be a SharedArrayBuffer, ArrayBuffer or ArrayBufferView')
+}
+
 // encoding argument is non-standard but catches usage of 'text-encoding' npm package API
 // Standard TextEncoder constructor doesn't have any arguments at all and is always utf-8
 function TextEncoder(encoding = UTF8) {
@@ -35,7 +41,8 @@ function TextEncoder(encoding = UTF8) {
 }
 
 TextEncoder.prototype.encode = function (str) {
-  return Buffer.from(str)
+  const buf = Buffer.from(str)
+  return new Uint8Array(buf.buffer, buf.byteOffset, buf.length)
 }
 
 TextEncoder.prototype.encodeInto = function () {
@@ -68,8 +75,11 @@ function TextDecoder(encoding = UTF8, options = {}) {
 }
 
 TextDecoder.prototype.decode = function (buf) {
-  // not sure of if this is possible
-  if (!Buffer.isBuffer(buf) && buf instanceof Uint8Array) {
+  if (buf === undefined) return ''
+
+  assertBufferSource(buf)
+
+  if (!Buffer.isBuffer(buf)) {
     buf = Buffer.from(buf)
   }
 
