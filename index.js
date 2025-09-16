@@ -1,11 +1,15 @@
 const UTF8 = 'utf-8'
 const UTF16LE = 'utf-16le'
 
+// https://encoding.spec.whatwg.org/#names-and-labels
+const UTF8alias = ['utf8', 'unicode-1-1-utf-8', 'unicode11utf8', 'unicode20utf8', 'x-unicode20utf8']
+const UTF16LEalias = ['utf-16', 'ucs-2', 'unicode', 'unicodefeff', 'iso-10646-ucs-2', 'csunicode'] // but not utf16
+
 const normalizeEncoding = (encoding) => {
   const lower = encoding.toLowerCase()
-  // https://developer.mozilla.org/en-US/docs/Web/API/Encoding_API/Encodings
-  if (lower === 'utf8' || lower === 'unicode-1-1-utf-8') return UTF8
-  if (lower === 'utf-16') return UTF16LE // but not utf16
+  if (UTF8 === lower || UTF16LE === lower) return lower // fast path
+  if (UTF8alias.includes(lower)) return UTF8
+  if (UTF16LEalias.includes(lower)) return UTF16LE
   return lower
 }
 
