@@ -56,4 +56,11 @@ describe('compare with Node.js impl', () => {
       expect(new TextDecoder().decode(buf)).toEqual(x)
     }
   })
+
+  it('TextDecoder: accept Uint32Array', () => {
+    const buf = Uint32Array.of(0x2a_2a_2a_2a)
+    const str = '****'
+    expect(new nodeTextDecoder().decode(buf)).toEqual(str)
+    expect(new TextDecoder().decode(buf)).toEqual(str)
+  })
 })

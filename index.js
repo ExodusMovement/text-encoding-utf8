@@ -30,9 +30,13 @@ const assertUTF8orUTF16LE = (encoding) => {
   }
 }
 
-const assertBufferSource = (buf) => {
-  if (buf instanceof ArrayBuffer || ArrayBuffer.isView(buf)) return
-  if (globalThis.SharedArrayBuffer && buf instanceof globalThis.SharedArrayBuffer) return
+const fromBufferSouce = (buf) => {
+  if (buf instanceof ArrayBuffer) return Buffer.from(buf)
+  if (ArrayBuffer.isView(buf)) return Buffer.from(buf.buffer, buf.byteOffset, buf.byteLength)
+  if (globalThis.SharedArrayBuffer && buf instanceof globalThis.SharedArrayBuffer) {
+    return Buffer.from(buf.buffer, buf.byteOffset, buf.byteLength)
+  }
+
   throw new Error('argument must be a SharedArrayBuffer, ArrayBuffer or ArrayBufferView')
 }
 
@@ -80,14 +84,7 @@ function TextDecoder(encoding = UTF8, options = {}) {
 
 TextDecoder.prototype.decode = function (buf) {
   if (buf === undefined) return ''
-
-  assertBufferSource(buf)
-
-  if (!Buffer.isBuffer(buf)) {
-    buf = Buffer.from(buf)
-  }
-
-  return buf.toString(this.encoding)
+  return fromBufferSouce(buf).toString(this.encoding)
 }
 
 module.exports = {
