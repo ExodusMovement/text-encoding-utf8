@@ -1,11 +1,11 @@
-# @exodus/text-encoding-utf8
+# Deprecated
 
-utf-8 only polyfill for TextEncoder/TextDecoder, using Buffer
-
-see the full polyfill: https://github.com/inexorabletash/text-encoding/
-
+Use [`@exodus/bytes/encoding-lite.js`](https://github.com/ExodusOSS/bytes#lite-version) for a lightweight `TextDecoder` polyfill:
 ```js
-const { TextEncoder, TextDecoder } = require('@exodus/text-encoding-utf8')
+import { TextDecoder, TextEncoder } from '@exodus/bytes/encoding-lite.js'
+```
 
-// use as you would the browser built-ins
+or [`@exodus/bytes/encoding.js`](https://github.com/ExodusOSS/bytes#textencoder--textdecoder-polyfill) for a full polyfill with legacy multi-byte encodings support.
+```js
+import { TextDecoder, TextEncoder } from '@exodus/bytes/encoding.js'
 ```
