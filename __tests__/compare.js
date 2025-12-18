@@ -1,5 +1,5 @@
 const { TextEncoder, TextDecoder } = require('../')
-const { TextEncoder: nodeTextEncoder, TextDecoder: nodeTextDecoder } = require('util')
+const { TextEncoder: NodeTextEncoder, TextDecoder: NodeTextDecoder } = require('util')
 
 const UTF8names = [
   'utf-8',
@@ -22,16 +22,16 @@ const UTF16LEnames = [
 describe('compare with Node.js impl', () => {
   it('TextEncoder', () => {
     for (const x of ['one', '∀x']) {
-      const node = new nodeTextEncoder().encode(x)
+      const node = new NodeTextEncoder().encode(x)
       expect(new TextEncoder().encode(x)).toEqual(node)
     }
   })
 
   it('TextDecoder: utf-8', () => {
     for (const x of ['one', '∀x']) {
-      const arr = new nodeTextEncoder().encode(x)
+      const arr = new NodeTextEncoder().encode(x)
       for (const encoding of UTF8names) {
-        expect(new nodeTextDecoder(encoding).decode(arr)).toEqual(x)
+        expect(new NodeTextDecoder(encoding).decode(arr)).toEqual(x)
         expect(new TextDecoder(encoding).decode(arr)).toEqual(x)
       }
     }
@@ -41,7 +41,7 @@ describe('compare with Node.js impl', () => {
     for (const x of ['one', '∀x']) {
       const arr = Buffer.from(x, 'utf-16le')
       for (const encoding of UTF16LEnames) {
-        expect(new nodeTextDecoder(encoding).decode(arr)).toEqual(x)
+        expect(new NodeTextDecoder(encoding).decode(arr)).toEqual(x)
         expect(new TextDecoder(encoding).decode(arr)).toEqual(x)
       }
     }
@@ -49,10 +49,10 @@ describe('compare with Node.js impl', () => {
 
   it('TextDecoder: accept ArrayBuffer', () => {
     for (const x of ['one', '∀x']) {
-      const arr = new nodeTextEncoder().encode(x)
+      const arr = new NodeTextEncoder().encode(x)
       const buf = arr.buffer
       expect(buf.byteLength).toBe(arr.length)
-      expect(new nodeTextDecoder().decode(buf)).toEqual(x)
+      expect(new NodeTextDecoder().decode(buf)).toEqual(x)
       expect(new TextDecoder().decode(buf)).toEqual(x)
     }
   })
@@ -60,7 +60,7 @@ describe('compare with Node.js impl', () => {
   it('TextDecoder: accept Uint32Array', () => {
     const buf = Uint32Array.of(0x2a_2a_2a_2a)
     const str = '****'
-    expect(new nodeTextDecoder().decode(buf)).toEqual(str)
+    expect(new NodeTextDecoder().decode(buf)).toEqual(str)
     expect(new TextDecoder().decode(buf)).toEqual(str)
   })
 })
